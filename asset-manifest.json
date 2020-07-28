@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/pomodoroclock/static/css/main.b90f5884.chunk.css",
+    "main.js": "/pomodoroclock/static/js/main.c90fe035.chunk.js",
+    "main.js.map": "/pomodoroclock/static/js/main.c90fe035.chunk.js.map",
+    "runtime-main.js": "/pomodoroclock/static/js/runtime-main.f7f828c9.js",
+    "runtime-main.js.map": "/pomodoroclock/static/js/runtime-main.f7f828c9.js.map",
+    "static/js/2.3c387c42.chunk.js": "/pomodoroclock/static/js/2.3c387c42.chunk.js",
+    "static/js/2.3c387c42.chunk.js.map": "/pomodoroclock/static/js/2.3c387c42.chunk.js.map",
+    "index.html": "/pomodoroclock/index.html",
+    "precache-manifest.efd32b11cdbc2b2eb2f2457012ff5d6b.js": "/pomodoroclock/precache-manifest.efd32b11cdbc2b2eb2f2457012ff5d6b.js",
+    "service-worker.js": "/pomodoroclock/service-worker.js",
+    "static/css/main.b90f5884.chunk.css.map": "/pomodoroclock/static/css/main.b90f5884.chunk.css.map",
+    "static/js/2.3c387c42.chunk.js.LICENSE.txt": "/pomodoroclock/static/js/2.3c387c42.chunk.js.LICENSE.txt",
+    "static/media/digital-7.ttf": "/pomodoroclock/static/media/digital-7.1e670d88.ttf",
+    "static/media/forest.mp3": "/pomodoroclock/static/media/forest.31393b87.mp3"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.f7f828c9.js",
+    "static/js/2.3c387c42.chunk.js",
+    "static/css/main.b90f5884.chunk.css",
+    "static/js/main.c90fe035.chunk.js"
+  ]
+}
