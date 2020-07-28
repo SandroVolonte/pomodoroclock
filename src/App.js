@@ -35,7 +35,7 @@ const SetTimers = (props) => {
                         <button className={"btnChange"} id={"break-decrement"} value={-1} onClick={props.handleChangeBreak}>
                             <FontAwesomeIcon className={"Icons"} icon={faArrowDown} size={"lg"}/>
                         </button>
-                        {props.breakLength}
+                        <text id={"break-length"}>{props.breakLength}</text>
                         <button className={"btnChange"} id={"break-increment"} value={1} onClick={props.handleChangeBreak}>
                             <FontAwesomeIcon className={"Icons"} icon={faArrowUp} size={"lg"}/>
                         </button>
@@ -47,11 +47,11 @@ const SetTimers = (props) => {
                     <h2 className={"LengthHeader"}>
                         Session-Length
                     </h2>
-                    <div id={"session-length"} className={"Lengthwrapper"}>
+                    <div className={"Lengthwrapper"}>
                         <button className={"btnChange"} id={"session-decrement"} value={-1} onClick={props.handleChangeSession}>
                         <FontAwesomeIcon className={"Icons"}  icon={faArrowDown} size={"lg"}/>
                         </button>
-                         {props.sessionLength}
+                        <text id={"session-length"}>{props.sessionLength}</text>
                         <button className={"btnChange"} id={"session-increment"} value={1} onClick={props.handleChangeSession}>
                         <FontAwesomeIcon className={"Icons"} icon={faArrowUp} size={"lg"}/>
                         </button>
@@ -109,6 +109,9 @@ class PomodoroClock extends React.Component{
     this.handleStartStopToggle = this.handleStartStopToggle.bind(this);
     this.handleReset = this.handleReset.bind(this);
     this.tick = this.tick.bind(this);
+    this.handleTransition = this.handleTransition.bind(this);
+    this.handleSetInterval = this.handleSetInterval.bind(this);
+    this.handleTransitionPause = this.handleTransitionPause.bind(this);
 
   }
 
@@ -139,9 +142,40 @@ class PomodoroClock extends React.Component{
         }
     }
 
+    handleTransition(){
+        document.getElementById("beep").play();
+        if(this.state.currentMode === "Session"){
+            this.setState(state => {
+                Object.assign(this.state, {currentMode : "Break",
+                    currentMinutes: state.breakLength < 10 ? "0" + state.breakLength.toString() : state.breakLength,
+                    currentSeconds: "00",
+                    currentTimer: state.breakLength * 60,
+                    running: "PAUSE"})
+            });
+            this.forceUpdate();
+            setTimeout(this.handleTransitionPause, 2000)
+        }
+        else{
+            this.setState(state => {
+                Object.assign(this.state, {currentMode: "Session",
+                    currentMinutes: state.sessionLength < 10 ? "0" + state.sessionLength.toString() : state.sessionLength,
+                    currentSeconds: "00",
+                    currentTimer: state.sessionLength * 60,
+                    running: "PAUSE"})
+            });
+            this.forceUpdate();
+            setTimeout(this.handleTransitionPause, 2000)
+        }
+    }
+
+
+    handleTransitionPause () {
+        this.setState(state => {Object.assign(this.state, {running: "ON"})})
+    }
+
     tick(){
 
-      if((this.state.running === "ON")){
+      if((this.state.running === "ON" && this.state.currentTimer > 0)){
         let newTimer = this.state.currentTimer - 1;
         let newMins = Math.floor(newTimer / 60);
         let newSeconds = newTimer - newMins * 60;
@@ -151,23 +185,7 @@ class PomodoroClock extends React.Component{
                     currentSeconds: (newSeconds > 9) ? (newSeconds) : ("0" + newSeconds.toString())})
         });
         if(newTimer === 0){
-            document.getElementById("beep").play();
-            if(this.state.currentMode === "Session"){
-                this.setState(state => {
-                    Object.assign(this.state, {currentMode : "Break",
-                    currentMinutes: state.breakLength,
-                    currentSeconds: "00",
-                    currentTimer: state.breakLength * 60})
-                });
-            }
-            else{
-                this.setState(state => {
-                    Object.assign(this.state, {currentMode: "Session",
-                    currentMinutes: state.sessionLength,
-                    currentSeconds: "00",
-                    currentTimer: state.sessionLength * 60})
-                });
-            }
+            setTimeout(this.handleTransition, 500);
         }
         this.forceUpdate();
       }
@@ -175,13 +193,19 @@ class PomodoroClock extends React.Component{
       }
     }
 
+
+    handleSetInterval(){
+        this.interval = setInterval(this.tick, 1000);
+    }
+
+
     handleStartStopToggle() {
       let control = this.state.running;
         (this.state.running === "ON") ?
             (this.setState(Object.assign(this.state, {running:"PAUSE"}))) :
             (this.setState(Object.assign(this.state, {running: "ON"})));
         if(control === "OFF"){
-            this.interval = setInterval(this.tick, 1000);
+            setTimeout(this.handleSetInterval, 500)
         }
     }
 
