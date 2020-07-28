@@ -1,6 +1,12 @@
+@font-face {
+  font-family: digital-7;
+  src: local("digital-7"), url("./fonts/digital-7.ttf") format("truetype");
+}
+
 .Title{
-  background-color: lightskyblue;
+  background-color: transparent;
   text-align: center;
+  font-size: 200%;
 }
 
 .wrapper{
@@ -15,12 +21,13 @@
 
 .Lengthwrapper{
   text-align: center;
-  background-color: grey;
+  background-color: transparent;
   font-size: 20px;
 }
 
 .LengthHeader{
   text-align: center;
+  font-size: 120%;
 }
 
 .Setter{
@@ -39,9 +46,11 @@
 }
 
 .DisplayCol{
-  background-color: darkgrey;
-  border: solid #282c34;
+  background-color: transparent;
+  border: solid ;
   border-radius: 20px;
+  text-align: center;
+  padding-top: 2%
 }
 
 .Toolbar{
@@ -49,5 +58,21 @@
 }
 
 .ToolbarCol{
-  background-color: darkgrey;
+  background-color: transparent;
+}
+
+.watchwrapper{
+  background-color: #282c34;
+  padding-top: 3%;
+  padding-bottom: 3%;
+  margin-right: 28vw;
+  margin-left: 28vw;
+  font-family: digital-7, serif;
+  color: greenyellow;
+  border-radius: 60%;
+  border: 20px solid black;
+}
+
+.Icons{
+  color: greenyellow;
 }
